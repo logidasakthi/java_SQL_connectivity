@@ -67,8 +67,18 @@ public class NewJFrame extends javax.swing.JFrame {
         });
 
         update.setText("update");
+        update.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                updateActionPerformed(evt);
+            }
+        });
 
         delete.setText("delete");
+        delete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deleteActionPerformed(evt);
+            }
+        });
 
         New.setText("new");
         New.addActionListener(new java.awt.event.ActionListener() {
@@ -171,6 +181,38 @@ public class NewJFrame extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(null,ex);
     }
     }//GEN-LAST:event_insertActionPerformed
+
+    private void deleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteActionPerformed
+         try{
+        String sql="DELETE FROM student WHERE studentId=3";
+        con = DriverManager.getConnection("jdbc:mysql://localhost:3306/practice","root","");
+        pat=con.prepareStatement(sql);
+        pat.setString(0,rollno_ip.getText());
+        pat.executeUpdate();
+        JOptionPane.showMessageDialog(null,"deleted successfully");
+    }
+    catch(HeadlessException | SQLException ex){
+        JOptionPane.showMessageDialog(null,ex);
+    }
+        
+    }//GEN-LAST:event_deleteActionPerformed
+
+    private void updateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateActionPerformed
+          try{
+        String sql="UPDATE student SET Name=?,age=?,city=? WHERE studentId=?";
+        con = DriverManager.getConnection("jdbc:mysql://localhost:3306/practice","root","");
+        pat=con.prepareStatement(sql);
+        pat.setString(4,rollno_ip.getText());
+        pat.setString(1,name_ip.getText());
+        pat.setString(2,age_ip.getText());
+        pat.setString(3,city_ip.getText());
+        pat.executeUpdate();
+        JOptionPane.showMessageDialog(null,"updated successfully");
+    }
+    catch(HeadlessException | SQLException ex){
+        JOptionPane.showMessageDialog(null,ex);
+    }
+    }//GEN-LAST:event_updateActionPerformed
 
     /**
      * @param args the command line arguments
