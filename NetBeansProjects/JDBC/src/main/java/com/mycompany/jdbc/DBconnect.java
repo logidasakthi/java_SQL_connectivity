@@ -10,7 +10,7 @@ import java.sql.*;
  * @author logida
  */
 public class DBconnect {
-     private Connection con;
+       private Connection con;
        private Statement st;
        private ResultSet rs;
        public DBconnect(){
@@ -19,7 +19,8 @@ public class DBconnect {
         Class.forName("com.mysql.cj.jdbc.Driver");
         con=DriverManager.getConnection("jdbc:mysql://localhost:3306/practice","root","");
         st=con.createStatement();
-        }catch(Exception e){
+        }
+        catch(Exception e){
             System.out.println("Error: "+e);
         }
        } 
