@@ -13,6 +13,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -49,9 +50,9 @@ public class NewJFrame extends javax.swing.JFrame {
         insert = new javax.swing.JButton();
         update = new javax.swing.JButton();
         delete = new javax.swing.JButton();
-        New = new javax.swing.JButton();
+        view = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        table = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -84,14 +85,14 @@ public class NewJFrame extends javax.swing.JFrame {
             }
         });
 
-        New.setText("new");
-        New.addActionListener(new java.awt.event.ActionListener() {
+        view.setText("view");
+        view.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                NewActionPerformed(evt);
+                viewActionPerformed(evt);
             }
         });
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        table.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -99,10 +100,10 @@ public class NewJFrame extends javax.swing.JFrame {
                 {null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "studentID", "Name", "Age", "City"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(table);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -131,7 +132,7 @@ public class NewJFrame extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(delete)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(New, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(view, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(27, 27, 27)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 392, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(39, Short.MAX_VALUE))
@@ -162,7 +163,7 @@ public class NewJFrame extends javax.swing.JFrame {
                             .addComponent(insert)
                             .addComponent(update)
                             .addComponent(delete)
-                            .addComponent(New))
+                            .addComponent(view))
                         .addGap(71, 71, 71))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 301, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -183,9 +184,26 @@ public class NewJFrame extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void NewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NewActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_NewActionPerformed
+    private void viewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewActionPerformed
+      try{
+          String sql="select * from student";
+          con = DriverManager.getConnection("jdbc:mysql://localhost:3306/practice","root","");
+          pat=con.prepareStatement(sql);
+          rs=pat.executeQuery();
+          DefaultTableModel tm=(DefaultTableModel)table.getModel();
+          tm.setRowCount(0);
+        
+          
+          while(rs.next()){
+              Object o[]={rs.getInt("studentId"),rs.getString("Name"),rs.getString("age"),rs.getString("city")};
+              tm.addRow(o);
+          }
+          
+      }
+      catch(Exception e){
+          JOptionPane.showMessageDialog(null,e);
+      }
+    }//GEN-LAST:event_viewActionPerformed
 
     private void insertActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_insertActionPerformed
     try{
@@ -208,27 +226,16 @@ public class NewJFrame extends javax.swing.JFrame {
 
     private void deleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteActionPerformed
          try{       
-       con = DriverManager.getConnection("jdbc:mysql://localhost:3306/practice","root","");
-          String sql="DELETE FROM student WHERE studentId=?";
-        pat=con.prepareStatement(sql);
-        pat.setString(1,rollno_ip.getText());
-        pat.executeUpdate();
-        JOptionPane.showMessageDialog(null,"deleted successfully");
-    }
-    catch(HeadlessException | SQLException ex){
-        JOptionPane.showMessageDialog(null,ex);
-    }
-//        try{
-//            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/practice","root","");
-//            stmt=con.createStatement();
-//            stmt.execute("DELETE FROM student WHERE studentId=3");
-//               JOptionPane.showMessageDialog(null,"deleted successfully");
-//            
-//        }
-//        catch(Exception e){
-//            e.printStackTrace();
-//        }
-        
+                con = DriverManager.getConnection("jdbc:mysql://localhost:3306/practice","root","");
+                String sql="DELETE FROM student WHERE studentId=?";
+                pat=con.prepareStatement(sql);
+                pat.setString(1,rollno_ip.getText());
+                pat.executeUpdate();
+                JOptionPane.showMessageDialog(null,"deleted successfully");
+                }
+                catch(HeadlessException | SQLException ex){
+                    JOptionPane.showMessageDialog(null,ex);
+                }  
     }//GEN-LAST:event_deleteActionPerformed
 
     private void updateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateActionPerformed
@@ -284,7 +291,6 @@ public class NewJFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton New;
     private javax.swing.JLabel age;
     private javax.swing.JTextField age_ip;
     private javax.swing.JLabel city;
@@ -293,11 +299,12 @@ public class NewJFrame extends javax.swing.JFrame {
     private javax.swing.JButton insert;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JLabel name;
     private javax.swing.JTextField name_ip;
     private javax.swing.JLabel rollno;
     private javax.swing.JTextField rollno_ip;
+    private javax.swing.JTable table;
     private javax.swing.JButton update;
+    private javax.swing.JButton view;
     // End of variables declaration//GEN-END:variables
 }
