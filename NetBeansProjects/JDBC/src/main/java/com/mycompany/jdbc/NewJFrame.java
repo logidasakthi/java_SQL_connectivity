@@ -206,22 +206,22 @@ public class NewJFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_viewActionPerformed
 
     private void insertActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_insertActionPerformed
-    try{
-        String sql="INSERT INTO student"
-                +"(studentId, Name, age, city)"
-                +"VALUES (?,?,?,?)";
-        con = DriverManager.getConnection("jdbc:mysql://localhost:3306/practice","root","");
-        pat=con.prepareStatement(sql);
-        pat.setString(1,rollno_ip.getText());
-        pat.setString(2,name_ip.getText());
-        pat.setString(3,age_ip.getText());
-        pat.setString(4,city_ip.getText());
-        pat.executeUpdate();
-        JOptionPane.showMessageDialog(null,"inserted successfully");
-    }
-    catch(HeadlessException | SQLException ex){
-        JOptionPane.showMessageDialog(null,ex);
-    }
+        try{
+            String sql="INSERT INTO student"
+                    +"(studentId, Name, age, city)"
+                    +"VALUES (?,?,?,?)";
+            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/practice","root","");
+            pat=con.prepareStatement(sql);
+            pat.setString(1,rollno_ip.getText());
+            pat.setString(2,name_ip.getText());
+            pat.setString(3,age_ip.getText());
+            pat.setString(4,city_ip.getText());
+            pat.executeUpdate();
+            JOptionPane.showMessageDialog(null,"inserted successfully");
+        }
+        catch(HeadlessException | SQLException ex){
+            JOptionPane.showMessageDialog(null,ex);
+        }
     }//GEN-LAST:event_insertActionPerformed
 
     private void deleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteActionPerformed
@@ -232,27 +232,27 @@ public class NewJFrame extends javax.swing.JFrame {
                 pat.setString(1,rollno_ip.getText());
                 pat.executeUpdate();
                 JOptionPane.showMessageDialog(null,"deleted successfully");
-                }
-                catch(HeadlessException | SQLException ex){
-                    JOptionPane.showMessageDialog(null,ex);
-                }  
+         }
+         catch(HeadlessException | SQLException ex){
+                JOptionPane.showMessageDialog(null,ex);
+         }  
     }//GEN-LAST:event_deleteActionPerformed
 
     private void updateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateActionPerformed
           try{
-        String sql="UPDATE student SET Name=?,age=?,city=? WHERE studentId=?";
-        con = DriverManager.getConnection("jdbc:mysql://localhost:3306/practice","root","");
-        pat=con.prepareStatement(sql);
-        pat.setString(4,rollno_ip.getText());
-        pat.setString(1,name_ip.getText());
-        pat.setString(2,age_ip.getText());
-        pat.setString(3,city_ip.getText());
-        pat.executeUpdate();
-        JOptionPane.showMessageDialog(null,"updated successfully");
-    }
-    catch(HeadlessException | SQLException ex){
-        JOptionPane.showMessageDialog(null,ex);
-    }
+                String sql="UPDATE student SET Name=?,age=?,city=? WHERE studentId=?";
+                con = DriverManager.getConnection("jdbc:mysql://localhost:3306/practice","root","");
+                pat=con.prepareStatement(sql);
+                pat.setString(4,rollno_ip.getText());
+                pat.setString(1,name_ip.getText());
+                pat.setString(2,age_ip.getText());
+                pat.setString(3,city_ip.getText());
+                pat.executeUpdate();
+                JOptionPane.showMessageDialog(null,"updated successfully");
+          }
+          catch(HeadlessException | SQLException ex){
+                JOptionPane.showMessageDialog(null,ex);
+          }
     }//GEN-LAST:event_updateActionPerformed
 
     /**
