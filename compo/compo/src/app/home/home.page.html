@@ -1,0 +1,23 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>
+      Component tasks
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true"> 
+  <!--Mail component  -->
+  <div *ngFor="let mail of mailDatas; let i = index">
+    <app-mail-basic (sendToParent)="mailDatachild($event,i)" [maildata]="mail"></app-mail-basic>
+  </div>
+
+</ion-content>
+
+<ion-footer >
+  <!-- Add items from inputs -->
+  <ion-input class="foot-align" [(ngModel)]="name" >1) Name :</ion-input>
+  <ion-input class="foot-align" [(ngModel)]="role" >2) Role :</ion-input>
+  <ion-button color="warning" expand="full" (click)="addItem()">Add</ion-button>
+</ion-footer>
+

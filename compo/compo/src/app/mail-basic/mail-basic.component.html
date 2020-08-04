@@ -1,0 +1,21 @@
+<!-- Elements of child component  -->
+<ion-grid>
+  <ion-row>
+    <ion-col col-4>
+        <ion-avatar>
+              <img class="circle-avatar" src="../../assets/shapes.svg"> 
+        </ion-avatar>
+    </ion-col>
+
+    <ion-col col-3 class="circle-name" >{{ maildata.name }}</ion-col>
+    
+    <ion-col  col-3 class="circle-description" >{{maildata.role}}</ion-col>
+    
+    <ion-col col-2>
+        <ion-avatar (click)="emptyItem($index)" class="into">
+              <img src="../../assets/icon/into.png">
+        </ion-avatar>
+    </ion-col>
+  </ion-row>
+</ion-grid>
+
